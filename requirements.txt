@@ -1,0 +1,25 @@
+# Core Dependencies for KOSMOS-2.5 Custom Batch Processor
+# Python 3.8+ required
+
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Transformers and Model Support
+transformers>=4.35.0
+accelerate>=0.24.0
+
+# Image Processing
+Pillow>=10.0.0
+
+# Utilities
+requests>=2.31.0
+numpy>=1.24.0
+
+# Optional: For FP8 Quantization (if using fp8 modules)
+# bitsandbytes>=0.41.0  # Uncomment if using FP8 quantization features
+
+# Development and Testing (Optional)
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0
