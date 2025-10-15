@@ -1,6 +1,6 @@
-# KOSMOS-2.5 Custom Batch Processor
+# KOSMOS-2.5 using Custom Prompt 
 
-A powerful batch processing framework for [Microsoft's KOSMOS-2.5](https://huggingface.co/microsoft/kosmos-2.5) multimodal model with dedicated custom prompts for OCR and Markdown extraction tasks.
+A batch processing framework for [Microsoft's KOSMOS-2.5](https://huggingface.co/microsoft/kosmos-2.5) multimodal model with dedicated custom prompts for OCR and Markdown extraction tasks.
 
 ## Features
 
