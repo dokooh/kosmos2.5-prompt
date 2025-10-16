@@ -901,7 +901,7 @@ def get_args():
     # Model configuration
     parser.add_argument('--model_checkpoint', '-m', type=str, 
                        default="microsoft/kosmos-2.5",
-                       help='Path to model checkpoint or repository')
+                       help='Path to model checkpoint (local directory) or HuggingFace repository name (default: microsoft/kosmos-2.5)')
     parser.add_argument('--device', '-d', type=str, default=None,
                        help='Device to use (auto-detected if not specified)')
     
@@ -951,11 +951,27 @@ def main():
         print(f"Error: Temperature must be between 0.0 and 1.0, got {args.temperature}")
         sys.exit(1)
     
+    # Validate model checkpoint parameter
+    if args.model_checkpoint:
+        # Check if it's a local path
+        if os.path.exists(args.model_checkpoint):
+            if not os.path.isdir(args.model_checkpoint):
+                print(f"Error: Model checkpoint path exists but is not a directory: {args.model_checkpoint}")
+                sys.exit(1)
+        # If not a local path, assume it's a HuggingFace repository name
+        elif not args.model_checkpoint.replace('-', '').replace('_', '').replace('/', '').replace('.', '').isalnum():
+            print(f"Warning: Model checkpoint '{args.model_checkpoint}' doesn't appear to be a valid local path or repository name")
+            print("Proceeding anyway - this might be a valid HuggingFace repository...")
+    
     print("Enhanced Custom Batch Processor for Kosmos-2.5 (FP16 Version)")
     print("="*60)
     print(f"Input: {args.input}")
     print(f"Output: {args.output}")
-    print(f"Model: {args.model_checkpoint}")
+    
+    # Determine model type for display
+    model_type = "Local Model" if os.path.exists(args.model_checkpoint) else "HuggingFace Repository"
+    print(f"Model: {args.model_checkpoint} ({model_type})")
+    
     print(f"OCR Prompt: {args.ocr_prompt}")
     print(f"Markdown Prompt: {args.md_prompt}")
     print(f"Device: {args.device or 'auto-detect'}")
